@@ -1,0 +1,13 @@
+venv/
+__pycache__
+ckpt/*
+data/
+index/*
+models/__pycache__
+datasets/__pycache__
+corruption/__pycache__
+#logs/*
+.idea/
+datasets/
+*/__pycache__/
+*.jpg
