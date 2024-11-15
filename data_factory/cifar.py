@@ -1,35 +1,17 @@
-from torch.utils.data import Dataset
-from torchvision import datasets, transforms
+from torchvision import (
+    datasets
+)
+
+from data_factory.base_loader import DataManager
 
 
-class DataManager:
-    """
-    Data Manager Class
-    """
+class CIFARDataset(DataManager):
+    def __init__(self, dataset: str, transform=None):
+        super().__init__(dataset=dataset, transform=transform)
 
-    def __init__(
-            self,
-            dataset: str,
-    ):
-        """
-        Data Manager
-
-        :param dataset: str, name of the dataset
-        """
-        # --- data config ---
-        self.data_set = dataset
-
-        # --- initialize attributes specific to dataset
-        self.num_classes = None
-        self.num_channels, self.height, self.width, self.input_shape = None, None, None, None
-        self.mean, self.std = None, None
-
-    # ---- main function to get datasets -----
-    def get_dataset(self, aug: transforms = None) -> [Dataset] * 2:
+    def get_dataset(self):
         """
         DownLoads the correct data from internet
-
-        :param aug: torch transformation to be applied to the dataset
         :return: dataset_train, dataset_test
         """
         # ----------------------------------------
@@ -41,13 +23,13 @@ class DataManager:
             print("Creating Classification Dataset - CIFAR 10")
             dataset_train = datasets.CIFAR10(
                 "datasets/cifar10",
-                transform=aug,
+                transform=self.transform,
                 train=True,
                 download=True
             )
             dataset_test = datasets.CIFAR10(
                 "datasets/cifar10",
-                transform=aug,
+                transform=self.transform,
                 train=False,
                 download=True
             )
@@ -59,13 +41,13 @@ class DataManager:
             print("Creating Classification Dataset - CIFAR 100")
             dataset_train = datasets.CIFAR100(
                 "datasets/cifar100",
-                transform=aug,
+                transform=self.transform,
                 train=True,
                 download=True
             )
             dataset_test = datasets.CIFAR100(
                 "datasets/cifar100",
-                transform=aug,
+                transform=self.transform,
                 train=False,
                 download=True
             )
