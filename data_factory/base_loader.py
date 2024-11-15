@@ -25,10 +25,11 @@ class DataManager:
         self.mean, self.std = None, None
 
     # ---- main function to get datasets -----
-    def get_dataset(self) -> [Dataset] * 2:
+    def get_dataset(self) -> [Dataset, Dataset]:
         """
         DownLoads the correct data from internet
 
         :return: dataset_train, dataset_test
         """
         raise NotImplementedError("Subclass must implement abstract method")
+
