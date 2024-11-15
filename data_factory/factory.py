@@ -8,7 +8,7 @@ class DataFactory:
         'flickr8k': FlickrDataset,
     }
 
-    def __init__(self, dataset: str, transform=None):
+    def __init__(self, dataset: str, transform=None, cache_dir: str=None):
         """
         Initializes the DataFactory to act as the specified dataset class.
 
@@ -36,7 +36,7 @@ class DataFactory:
         return getattr(self._dataset_instance, attr)
 
 
-
+# Example usage:
 if __name__ == '__main__':
     data = DataFactory('cifar10')
     tr_data, te_data = data.get_dataset()

@@ -6,8 +6,8 @@ from data_factory.base_loader import DataManager
 
 
 class CIFARDataset(DataManager):
-    def __init__(self, dataset: str, transform=None):
-        super().__init__(dataset=dataset, transform=transform)
+    def __init__(self, dataset: str, transform=None, cache_dir: str = None):
+        super().__init__(dataset=dataset, transform=transform, cache_dir=cache_dir)
 
     def get_dataset(self):
         """

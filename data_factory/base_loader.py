@@ -9,7 +9,8 @@ class DataManager:
     def __init__(
             self,
             dataset: str,
-            transform=None
+            transform=None,
+            cache_dir: str = None
     ):
         """
         Data Manager
@@ -18,6 +19,7 @@ class DataManager:
         # --- data config ---
         self.data_set = dataset
         self.transform = transform
+        self.cache_dir = cache_dir if cache_dir else f"datasets/{dataset}"
 
         # --- initialize attributes specific to dataset
         self.num_classes = None
