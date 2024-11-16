@@ -48,7 +48,7 @@ if __name__ == '__main__':
     ]:
         data = DataFactory(d)
         tr_data, te_data = data.get_dataset()
-        print(f"Number of classes: {data.num_classes}")
+
         tr_loader = DataLoader(tr_data, batch_size=32, shuffle=True)
         te_loader = DataLoader(te_data, batch_size=32, shuffle=False)
 
