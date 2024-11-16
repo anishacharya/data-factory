@@ -39,13 +39,14 @@ class DataFactory:
 
 # Example usage:
 if __name__ == '__main__':
+    TEST_DATASETS = [
+        # 'cifar10',
+        # 'cifar100',
+        'flickr8k'
+    ]
     from torch.utils.data import DataLoader
 
-    for d in [
-        'cifar10',
-        'cifar100',
-        'flickr8k'
-    ]:
+    for d in TEST_DATASETS:
         data = DataFactory(d)
         tr_data, te_data = data.get_dataset()
 

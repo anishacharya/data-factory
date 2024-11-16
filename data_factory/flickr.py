@@ -51,7 +51,7 @@ class Flickr(Dataset):
         example = self.dataset[idx]
         img = example["jpg"]
         target_captions = example["txt"]
-        img = Image.open(img)
+        # img = Image.open(img)
         if self.transform:
             img = self.transform(img)
 
