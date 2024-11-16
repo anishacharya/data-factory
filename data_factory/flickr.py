@@ -5,6 +5,33 @@ from torchvision import transforms
 from datasets import load_dataset
 
 
+class FlickrDataset(DataManager):
+    data_source_map = {
+        'flickr8k': "clip-benchmark/wds_flickr8k"
+    }
+
+    def __init__(self, dataset: str, transform=None):
+        super().__init__(dataset=dataset, transform=transform)
+
+    def get_dataset(self):
+        if self.data_set == 'flickr8k':
+            dataset = load_dataset(
+                self.data_source_map[self.data_set],
+                cache_dir=self.cache_dir
+            )
+            train_dataset = Flickr(
+                dataset["train"],
+                transform=self.transform
+            )
+            test_dataset = Flickr(
+                dataset["test"],
+                transform=self.transform
+            )
+            return train_dataset, test_dataset
+        else:
+            raise NotImplementedError("Dataset not implemented")
+
+
 class Flickr(Dataset):
     def __init__(self, dataset, transform=None):
         self.dataset = dataset
@@ -31,25 +58,3 @@ class Flickr(Dataset):
         return img, target_captions
 
 
-class FlickrDataset(DataManager):
-    data_source_map = {
-        'flickr8k': "clip-benchmark/wds_flickr8k"
-    }
-
-    def __init__(self, dataset: str, transform=None):
-        super().__init__(dataset=dataset, transform=transform)
-
-    def get_dataset(self):
-        if self.data_set == 'flickr8k':
-            dataset = load_dataset(self.data_source_map[self.data_set])
-            train_dataset = Flickr(
-                dataset["train"],
-                transform=self.transform
-            )
-            test_dataset = Flickr(
-                dataset["test"],
-                transform=self.transform
-            )
-            return train_dataset, test_dataset
-        else:
-            raise NotImplementedError("Dataset not implemented")

@@ -23,7 +23,8 @@ class DataFactory:
 
         self._dataset_instance = self.data_map[dataset](
             dataset=dataset,
-            transform=transform
+            transform=transform,
+            cache_dir=cache_dir
         )
 
     def __getattr__(self, attr):
@@ -38,8 +39,7 @@ class DataFactory:
 
 # Example usage:
 if __name__ == '__main__':
-    data = DataFactory('cifar10')
-    tr_data, te_data = data.get_dataset()
-
-    print(f"Number of classes: {data.num_classes}")
-
+    for d in ['cifar10', 'cifar100', 'flickr8k']:
+        data = DataFactory(d)
+        tr_data, te_data = data.get_dataset()
+        print(f"Number of classes: {data.num_classes}")
