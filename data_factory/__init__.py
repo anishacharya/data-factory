@@ -1,1 +1,1 @@
-from .base_loader import DataManager
+from .factory import DataFactory

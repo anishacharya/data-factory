@@ -41,7 +41,11 @@ class DataFactory:
 if __name__ == '__main__':
     from torch.utils.data import DataLoader
 
-    for d in ['cifar10', 'cifar100', 'flickr8k']:
+    for d in [
+        'cifar10',
+        'cifar100',
+        'flickr8k'
+    ]:
         data = DataFactory(d)
         tr_data, te_data = data.get_dataset()
         print(f"Number of classes: {data.num_classes}")
