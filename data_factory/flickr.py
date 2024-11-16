@@ -1,13 +1,21 @@
 from data_factory.base_loader import DataManager
 from PIL import Image
 from torch.utils.data import Dataset
+from torchvision import transforms
 from datasets import load_dataset
 
 
 class Flickr(Dataset):
     def __init__(self, dataset, transform=None):
         self.dataset = dataset
-        self.transform = transform
+        if transform:
+            self.transform = transform
+        else:
+            # Since Flickr images are of different sizes, we resize them to 224x224
+            self.transform = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.ToTensor()
+            ])
 
     def __len__(self):
         return len(self.dataset)
@@ -39,4 +47,3 @@ class FlickrDataset(DataManager):
             return train_dataset, test_dataset
         else:
             raise NotImplementedError("Dataset not implemented")
-
