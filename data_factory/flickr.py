@@ -24,11 +24,7 @@ class Flickr(Dataset):
         example = self.dataset[idx]
         img = example["jpg"]
         target_captions = example["txt"]
-
-        # Convert the image to a PIL Image
         img = Image.open(img)
-
-        # Apply the transformations if specified
         if self.transform:
             img = self.transform(img)
 
@@ -36,14 +32,24 @@ class Flickr(Dataset):
 
 
 class FlickrDataset(DataManager):
+    data_source_map = {
+        'flickr8k': "clip-benchmark/wds_flickr8k"
+    }
+
     def __init__(self, dataset: str, transform=None):
         super().__init__(dataset=dataset, transform=transform)
 
     def get_dataset(self):
         if self.data_set == 'flickr8k':
-            dataset = load_dataset("clip-benchmark/wds_flickr8k")
-            train_dataset = Flickr(dataset["train"], transform=self.transform)
-            test_dataset = Flickr(dataset["test"], transform=self.transform)
+            dataset = load_dataset(self.data_source_map[self.data_set])
+            train_dataset = Flickr(
+                dataset["train"],
+                transform=self.transform
+            )
+            test_dataset = Flickr(
+                dataset["test"],
+                transform=self.transform
+            )
             return train_dataset, test_dataset
         else:
             raise NotImplementedError("Dataset not implemented")
